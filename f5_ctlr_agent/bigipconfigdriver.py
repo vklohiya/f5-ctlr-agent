@@ -767,6 +767,7 @@ class GTMManager(object):
                     self.delete_gtm_wideip(gtm, partition, oldConfig, wideip)
         except F5CcclError as e:
             log.error("GTM: Error while handling delete operation: %s", e)
+            raise e
 
     def handle_operation_create(self,gtm,partition,oldConfig,gtmConfig,opr_config,opr):
         """ Handle create operation """
@@ -817,6 +818,7 @@ class GTMManager(object):
                                 raise e
         except F5CcclError as e:
             log.error("GTM: Error while handling create operation: %s", e)
+            raise e
 
     def create_gtm(self, partition, gtmConfig):
         """ Create GTM object in BIG-IP """
@@ -846,6 +848,7 @@ class GTMManager(object):
                             raise e
         except F5CcclError as e:
             log.error("GTM: Error while creating gtm: %s", e)
+            raise e
 
     def create_wideip(self, gtm, partition, config,newPools):
         """ Create wideip and returns the wideip object """
@@ -879,6 +882,7 @@ class GTMManager(object):
                         list(newPools.values()))
         except F5CcclError as e:
             log.error("GTM: Error while creating wideip: %s", e)
+            raise e
 
 
     def create_gtm_pool(self, gtm, partition, config, monitorName):
@@ -917,6 +921,7 @@ class GTMManager(object):
                     raise e
         except F5CcclError as e:
             log.error("GTM: Error while creating pool: %s", e)
+            raise e
 
     def attach_gtm_pool_to_wideip(self, gtm, name, partition, poolObj):
         """ Attach gtm pool to the wideip """
@@ -936,6 +941,7 @@ class GTMManager(object):
                 wideip.update()
         except F5CcclError as e:
             log.error("GTM: Error while attaching gtm pool to wideip: %s", e)
+            raise e
 
     def add_member_to_gtm_pool(self, gtm, pool, poolName, memberName, partition):
         """ Add member to gtm pool """
@@ -983,6 +989,7 @@ class GTMManager(object):
             return float(verList[0] + '.' + verList[1])
         except F5CcclError as e:
             log.error("GTM: Could not fetch BigipVersion: %s", e)
+            raise e
 
     def create_HM(self, gtm, partition, monitor, wideIPName):
         """ Create Health Monitor """
@@ -1079,6 +1086,7 @@ class GTMManager(object):
                 log.info("Member {} deleted.".format(memberName))
         except F5CcclError as e:
             log.error("GTM: Error while removing pool member: %s", e)
+            raise e
 
     def remove_monitor_to_gtm_pool(self,gtm,partition,poolName,monitorName):
         """ Remove monitor from gtm pool """
@@ -1091,6 +1099,7 @@ class GTMManager(object):
                     log.info("Detached health monitor {} from pool {}".format(monitorName,poolName))
         except F5CcclError as e:
             log.error("Error while removing monitor from pool: %s", e)
+            raise e
 
     def remove_gtm_pool_to_wideip(self, gtm, wideipName, partition, poolName):
         """ Remove gtm pool to the wideip """
@@ -1106,6 +1115,7 @@ class GTMManager(object):
                         log.info("Removed the pool: {}".format(poolName))
         except F5CcclError as e:
             log.error("GTM: Error while removing pool: %s", e)
+            raise e
 
     def delete_gtm_pool(self,gtm,partition,oldConfig,wideipName,poolName):
         """ Delete gtm pools """
@@ -1134,6 +1144,7 @@ class GTMManager(object):
                 log.info("Deleted the pool: {}".format(poolName))
         except F5CcclError as e:
             log.error("GTM: Error while deleting pool: %s", e)
+            raise e
 
 
     def delete_gtm_wideip(self,gtm,partition,oldConfig,wideipName):
@@ -1158,6 +1169,7 @@ class GTMManager(object):
                 log.info("Deleted the wideIP: {}".format(wideipName))
         except F5CcclError as e:
             log.error("Could not delete wideip: %s", e)
+            raise e
 
     def delete_gtm_hm(self,gtm,partition,poolName,monitorName,oldConfig):
         """ Delete gtm health monitor """
@@ -1190,6 +1202,7 @@ class GTMManager(object):
                 log.info("Deleted the TCP Health monitor: {}".format(monitorName))
         except F5CcclError as e:
             log.error("GTM: Could not delete health monitor: %s", e)
+            raise e
 
     def process_config(self, d1, d2):
         """ Process old and new config """
