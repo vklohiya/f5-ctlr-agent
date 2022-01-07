@@ -425,7 +425,8 @@ class ConfigHandler():
                     mgr._gtm.pre_process_gtm(newGtmConfig)
                     isConfigSame = sorted(oldGtmConfig.items())==sorted(newGtmConfig.items())
                     if isConfigSame:
-                        log.info("No change in GTM config.")
+                        log.info(f"No change in GTM config. len old config:{len(oldGtmConfig)}, len new config{len(newGtmConfig)}")
+                        log.info(f"No change in GTM config. old config:{oldGtmConfig}, new config{newGtmConfig}")
                     elif not isConfigSame and len(oldGtmConfig)==0:
                         # GTM config is not same and for
                         # first time gtm config updates
